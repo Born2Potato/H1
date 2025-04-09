@@ -1,0 +1,5 @@
+{
+  "addonsFolder": "addons",
+  "excludePboSymlinks": [], 
+  "noBinarize": [ "h1" ]
+}
