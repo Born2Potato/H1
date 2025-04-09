@@ -1776,11 +1776,9 @@ class CfgVehicles
 		class CargoTurret;
 		class Turrets: Turrets
 		{
-			class MainTurret: MainTurret
+			class mainTurret: mainTurret
 			{
-			};
-			class GAU21_Left: MainTurret
-			{
+        gunnerType = "B_helicrew_F";
 				body="GAU21L_Dir";
 				gun="GAU21L_Elev";
 				animationSourceBody="GAU21L_Dir";
@@ -1805,8 +1803,10 @@ class CfgVehicles
 				memoryPointGunnerOutOptics="gunnerview_3";
 				LODTurnedIn=1;
 				LODTurnedOut=1;
-				gunnerAction="GAU21Gunner";
-				gunnerInAction="GAU21Gunner";
+        gunnerAction="gunner_Heli_Transport_01";
+				gunnerInAction="gunner_Heli_Transport_01";
+				//gunnerAction="GAU21Gunner";
+				//gunnerInAction="GAU21Gunner";
 
 				minElev=-60; 
 				maxElev=30; 
@@ -1835,10 +1835,10 @@ class CfgVehicles
 				};
 				gunBeg="GAU21L_End"; //gunBeg=endpoint of the gun
 				gunEnd="GAU21L_Beg"; //gunEnd=chamber of the gun
-				gunnerLeftHandAnimName="GAU21_ELEV_L";
-				gunnerRightHandAnimName= "GAU21_ELEV_L";
-				gunnerLeftLegAnimName="GAU21_GunnerL_Legs";
-				gunnerRightLegAnimName= "GAU21_GunnerL_Legs";
+				//gunnerLeftHandAnimName="GAU21_ELEV_L";
+				//gunnerRightHandAnimName= "GAU21_ELEV_L";
+				//gunnerLeftLegAnimName="GAU21_GunnerL_Legs";
+				//gunnerRightLegAnimName= "GAU21_GunnerL_Legs";
 				primaryGunner=0;
 				memoryPointGun="GAU21L_End";
 				memoryPointGunnerOptics="gunnerview_3";
@@ -1847,6 +1847,7 @@ class CfgVehicles
 			};
 			class M134_Right: MainTurret
 			{
+        gunnerType = "B_helicrew_F";
 				isCopilot=0;
 				body="Turret2";
 				gun="Gun_2";
@@ -1970,11 +1971,19 @@ class CfgVehicles
 			};
 
 
-			class CopilotTurret: CopilotTurret
+			class CopilotTurret: mainTurret
 			{
+        primaryObserver = 0;
+				primaryGunner = 1;
+				primary = 1;
+				playerPosition = 0;
+				isCopilot = 1;
+				usePiP=1;
+
 				CanEject=0;
-				gunnerAction="UH60_Pilot";
-				gunnerInAction="UH60_Pilot";
+				gunnerAction="pilot_Heli_Transport_01";
+				gunnerInAction="pilot_Heli_Light_03_Enter";
+        gunnerName = "Copilot";
 				canHideGunner=0;
 				viewGunnerInExternal=1;
 				memoryPointsGetInGunner = "pos codriver";
@@ -2000,7 +2009,7 @@ class CfgVehicles
 				gun = "tgp_ball";
 
 				// Animation source
-				animationSourceBody="tgp_turett";
+				animationSourceBody="tgp_turet";
 				animationSourceGun="tgp_ball";
 				stabilizedInAxes = 3;
 				minElev = -180;
@@ -2153,6 +2162,11 @@ class CfgVehicles
 		Faction="BLU_F";
 		displayName = "UH-1Y Venom";
 		crew = "B_Helipilot_F";
+    typicalCargo[]=
+		{
+			"B_helicrew_F",
+			"B_helicrew_F"
+		};
 		selectionHRotorStill = "velka vrtule staticka";
 		selectionHRotorMove = "velka vrtule blur";
 		selectionVRotorStill = "mala vrtule staticka";
