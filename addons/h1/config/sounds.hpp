@@ -8,14 +8,13 @@ class cfgsoundcurves
 	{
 		points[] = {{0,0.99},{0.1,0.75},{0.2,0.6},{0.3,0.55},{0.4,0.45},{0.5,0.4},{0.6,0.25},{0.7,0.175},{0.8,0.125},{0.9,0.1},{1,0.0}};
 	};
-	
-};	
-class cfgsound3dprocessors
-{
-	class uh1y_helicopter_basic_processorcurve
+  class uh1y_helicopter_basic_processorcurve
 	{
 		points[] = {{0,1},{0.1,0.97},{0.2,0.95},{0.3,0.85},{0.4,0.71},{0.5,0.52},{0.6,0.32},{0.7,0.18},{0.8,0.1},{0.9,0.03},{1,0}};
 	};
+};	
+class cfgsound3dprocessors
+{
 	class uh1y_helicopter_3dprocessor
 	{
 		type = "panner";
