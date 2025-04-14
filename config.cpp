@@ -652,19 +652,19 @@ class CfgVehicles
 		};
 		class AnimationSources: AnimationSources
 		{
-      //TGP
-      class tgp_turret
-      {
-        source="user";
-        animPeriod=1;
-        initPhase="rad 0";
-      };
-      class tgp_ball
-      {
-        source="user";
-        animPeriod=1;
-        initPhase="rad 0";
-      };
+			//TGP
+			class tgp_turret
+			{
+				source="user";
+				animPeriod=1;
+				initPhase="rad 0";
+			};
+			class tgp_ball
+			{
+				source="user";
+				animPeriod=1;
+				initPhase="rad 0";
+			};
 
 			//////////     Doors     //////////
 			class Door_FL_Hide
@@ -717,33 +717,90 @@ class CfgVehicles
 				source="rpm";
 				minValue=0;
 				maxValue=1;      
-				animPeriod=10;
+				animPeriod=0.1;
 				initPhase=0;
 			};
-			class rotor_blade_1_pitch
+
+			//////Static//////
+
+			class rotor_blade_static_1_pitch
 			{
 				source="collective";
 				animPeriod=0.1;
 				initPhase=1;
 			};
-			class rotor_blade_2_pitch
+			class rotor_blade_static_2_pitch
 			{
 				source="collective";
 				animPeriod=0.1;
 				initPhase=1;
 			};
-			class rotor_blade_3_pitch
+			class rotor_blade_static_3_pitch
 			{
 				source="collective";
 				animPeriod=0.1;
 				initPhase=1;
 			};
-			class rotor_blade_4_pitch
+			class rotor_blade_static_4_pitch
 			{
 				source="collective";
 				animPeriod=0.1;
 				initPhase=1;
 			};
+			
+			//////blur//////
+
+			class rotor_blade_blur_1_pitch
+			{
+				source="collective";
+				animPeriod=0.1;
+				initPhase=1;
+			};
+			class rotor_blade_blur_2_pitch
+			{
+				source="collective";
+				animPeriod=0.1;
+				initPhase=1;
+			};
+			class rotor_blade_blur_3_pitch
+			{
+				source="collective";
+				animPeriod=0.1;
+				initPhase=1;
+			};
+			class rotor_blade_blur_4_pitch
+			{
+				source="collective";
+				animPeriod=0.1;
+				initPhase=1;
+			};
+
+			class rotor_blade_blur_1_flap
+			{
+				source="collective";
+				animPeriod=0.1;
+				initPhase=1;
+			};
+			class rotor_blade_blur_2_flap
+			{
+				source="collective";
+				animPeriod=0.1;
+				initPhase=1;
+			};
+			class rotor_blade_blur_3_flap
+			{
+				source="collective";
+				animPeriod=0.1;
+				initPhase=1;
+			};
+			class rotor_blade_blur_4_flap
+			{
+				source="collective";
+				animPeriod=0.1;
+				initPhase=1;
+			};
+
+
 			class FormationLights
 			{
 				AnimPeriod=1;
