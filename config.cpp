@@ -50,7 +50,7 @@ class CfgVehicles
 		class CopilotTurret;       
 	};
 	class Helicopter_Base_F: Helicopter
-    	{
+    {
         class Turrets;    
 		class HitPoints: HitPoints
 		{
@@ -68,7 +68,7 @@ class CfgVehicles
 	};
 	class uh1y_base: Helicopter_Base_F
 	{
-		 // General Information
+		// General Information
 		features = "Slingload: Slingloads up to 2000kg";
 		faction = "BLU_F";
 		model = "\h1\uh1y_venom.p3d";
@@ -79,6 +79,10 @@ class CfgVehicles
 		class Library { libTextDesc = "UH1Y"; };
 
 		// Flight Characteristics
+		selectionHRotorStill = "Mrotor_static";
+		selectionHRotorMove = "Mrotor_blur";
+		selectionVRotorStill = "Trotor_static";
+		selectionVRotorMove = "Trotor_blur";
 		altFullForce = 1500;
 		altNoForce = 4000;
 		maxSpeed = 300;
@@ -107,69 +111,9 @@ class CfgVehicles
 			retreatBladeStallWarningSpeed = 83;
 		};
 
-		// Maneuvering and Controls
-		turnCoef = 4;
-		terrainCoef = 1;
-		damperSize = 1;
-		damperForce = 10;
-		damperDamping = 100;
-		wheelWeight = 30;
-		minOmega = 0;
-		maxOmega = 2000;
-		MainRotorSpeed = 1.5;
-		backRotorSpeed = 3;
-
-		// Defense Systems
-		armor = 40;
-		weapons[] = {"CMFlareLauncher"};
-		magazines[] = {"168Rnd_CMFlare_Chaff_Magazine"};
-		memoryPointCM[] = {"flare_launcher1", "flare_launcher2"};
-		memoryPointCMDir[] = {"flare_launcher1_dir", "flare_launcher2_dir"};
-		radarType = 4;
-		threat[] = {0.8, 1, 0.6};
-		LockDetectionSystem = 1 + 2 + 4 + 8;
-		incomingMissileDetectionSystem = 16;
-		laserScanner = 1;
-
-		// Crew & Cargo
-		transportSoldier = 4;
-		cargoCanEject = 1;
-		driverCanEject = 1;
-		cargoAction[] = {
-			"passenger_low01",
-			"passenger_generic01_leanleft",
-			"passenger_generic01_leanleft",
-			"passenger_generic01_leanright",
-			"passenger_generic01_foldhands",
-			"passenger_mantisrear",
-			"passenger_mantisrear",
-			"passenger_generic01_foldhands"
-		};
-		cargoIsCoDriver[] = {false, false, false, false, false, false};
-		driverCanSee = 31;
-		gunnerCanSee = 31;
-		transportAmmo = 200;
-		transportMaxMagazines = 100;
-		transportMaxWeapons = 10;
-		transportMaxBackpacks = 10;
-
-		// Slingload
-		slingLoadMaxCargoMass = 2000;
-		ace_fastroping_enabled = 1;
-		ace_fastroping_ropeOrigins[] = {"ropeOriginLeft", "ropeOriginRight"};
-
-		// Miscellaneous
-		fuelCapacity = 400;
-		fuelConsumptionRate = 0.126;
-		maxFordingDepth = 0.75;
-		memoryPointsGetInCargo[] = {"pos codriver", "pos cargo"};
-		memoryPointsGetInCargoDir[] = {"pos codriver dir", "pos cargo dir"};
-		driverAction = "pilot_Heli_Transport_01";
-		driverInAction = "pilot_Heli_Light_03_Enter";
-		driveOnComponent[] = {"Skids"};
-		hideWeaponsCargo = 1;
-
-		class vtx_templateFLIR
+		// Pilot Camera
+		memoryPointDriverOptics="pilotcamera_tgp_pos";
+		class pilotCamera
 		{
 			class OpticsIn
 			{
@@ -246,6 +190,70 @@ class CfgVehicles
 			pilotOpticsShowCursor=1;
 			controllable=1;
 		};
+
+		// Maneuvering and Controls
+		turnCoef = 4;
+		terrainCoef = 1;
+		damperSize = 1;
+		damperForce = 10;
+		damperDamping = 100;
+		wheelWeight = 30;
+		minOmega = 0;
+		maxOmega = 2000;
+		MainRotorSpeed = 1.5;
+		backRotorSpeed = 3;
+
+		// Defense Systems
+		armor = 40;
+		weapons[] = {"CMFlareLauncher"};
+		magazines[] = {"168Rnd_CMFlare_Chaff_Magazine"};
+		memoryPointCM[] = {"flare_launcher1", "flare_launcher2"};
+		memoryPointCMDir[] = {"flare_launcher1_dir", "flare_launcher2_dir"};
+		radarType = 4;
+		threat[] = {0.8, 1, 0.6};
+		LockDetectionSystem = 1 + 2 + 4 + 8;
+		incomingMissileDetectionSystem = 16;
+		laserScanner = 1;
+
+		// Crew & Cargo
+		transportSoldier = 4;
+		cargoCanEject = 1;
+		driverCanEject = 1;
+		cargoAction[] = 
+		{
+			"passenger_low01",
+			"passenger_generic01_leanleft",
+			"passenger_generic01_leanleft",
+			"passenger_generic01_leanright",
+			"passenger_generic01_foldhands",
+			"passenger_mantisrear",
+			"passenger_mantisrear",
+			"passenger_generic01_foldhands"
+		};
+		cargoIsCoDriver[] = {false, false, false, false, false, false};
+		driverCanSee = 31;
+		gunnerCanSee = 31;
+		transportAmmo = 200;
+		transportMaxMagazines = 100;
+		transportMaxWeapons = 10;
+		transportMaxBackpacks = 10;
+
+		// Slingload
+		slingLoadMaxCargoMass = 2000;
+		ace_fastroping_enabled = 1;
+		ace_fastroping_ropeOrigins[] = {"ropeOriginLeft", "ropeOriginRight"};
+
+		// Miscellaneous
+		fuelCapacity = 400;
+		fuelConsumptionRate = 0.126;
+		maxFordingDepth = 0.75;
+		memoryPointsGetInCargo[] = {"pos codriver", "pos cargo"};
+		memoryPointsGetInCargoDir[] = {"pos codriver dir", "pos cargo dir"};
+		driverAction = "pilot_Heli_Transport_01";
+		driverInAction = "pilot_Heli_Light_03_Enter";
+		driveOnComponent[] = {"Skids"};
+		hideWeaponsCargo = 1;
+
 		class TransportBackpacks
 		{
 			class _xx_B_Parachute
@@ -648,22 +656,22 @@ class CfgVehicles
 				helmetRight[] = {0, 0, 0};
 				helmetDown[] = {0, 0, 0};
 			};	
-      #include "config\MFD\kimi.hpp"		
+      		#include "config\MFD\kimi.hpp"		
 		};
 		class AnimationSources: AnimationSources
 		{
 			//TGP
-			class tgp_turret
+			class tgp_direction
 			{
 				source="user";
 				animPeriod=1;
-				initPhase="rad 0";
+				initPhase="rad 180";
 			};
-			class tgp_ball
+			class tgp_elevation
 			{
 				source="user";
 				animPeriod=1;
-				initPhase="rad 0";
+				initPhase="rad 80";
 			};
 
 			//////////     Doors     //////////
@@ -847,7 +855,7 @@ class CfgVehicles
 		{
       class CopilotTurret: mainTurret
 			{
-        primaryObserver = 0;
+        		primaryObserver = 0;
 				primaryGunner = 1;
 				primary = 1;
 				playerPosition = 0;
@@ -855,10 +863,10 @@ class CfgVehicles
 				usePiP=1;
 
 				CanEject=0;
-        gunnerType = "B_helipilot_F";
+       			gunnerType = "B_helipilot_F";
 				gunnerAction="pilot_Heli_Transport_01";
 				gunnerInAction="pilot_Heli_Light_03_Enter";
-        gunnerName = "Copilot";
+        		gunnerName = "Copilot";
 				canHideGunner=0;
 				viewGunnerInExternal=1;
 				memoryPointsGetInGunner = "pos codriver";
@@ -880,12 +888,12 @@ class CfgVehicles
 					"Laserbatteries"
 				};
 				// Animation class
-				body = "tgp_turret";
-				gun = "tgp_ball";
+				body = "tgp_direction";
+				gun = "tgp_elevation";
 
 				// Animation source
-				animationSourceBody="tgp_turret";
-				animationSourceGun="tgp_ball";
+				animationSourceBody="tgp_direction";
+				animationSourceGun="tgp_elevation";
         
 				stabilizedInAxes = 3;
 				minElev = -180;
@@ -897,87 +905,87 @@ class CfgVehicles
 				minFov = 0.25;
 				maxFov = 0.9;
 				initFov = 0.75;
-				memoryPointGunnerOptics = "commanderview";
-				gunBeg="gun_end";
-				gunEnd="gun_begin";
+				memoryPointGunnerOptics = "tgp_cam_pos";
+				gunBeg="tgp_cam_dir";
+				gunEnd="tgp_cam_pos";
 				gunnerUsesPilotView = false;
 				turretFollowFreeLook = 0;
 				class ViewGunner
 				{
-          initFov=1;
-          minFov=0.30000001;
-          maxFov=1.2;
-          initAngleX=-10;
-          minAngleX=-75;
-          maxAngleX=85;
-          initAngleY=0;
-          minAngleY=-170;
-          maxAngleY=170;
-          minMoveX=-0.30000001;
-          maxMoveX=0.30000001;
-          minMoveY=-0.025;
-          maxMoveY=0.1;
-          minMoveZ=-0.30000001;
-          maxMoveZ=0.30000001;
-          speedZoomMaxSpeed=0;
-          speedZoomMaxFOV=1;
-        };
-				class OpticsIn
-				{
-					class Wide
-					{
-						opticsDisplayName = "TRK COR";
-						initAngleX = 0;
-						minAngleX = -360;
-						maxAngleX = 360;
-						initAngleY = 0;
-						minAngleY = -15;
-						maxAngleY = 85;
-						initFov = 0.3;
-						minFov = 0.3;
-						maxFov = 0.3;
-						visionMode[] = {"Normal","NVG","Ti"};
-						thermalMode[] = {0};
-						directionStabilized = 1;
-						horizontallyStabilized = 1;
-						gunnerOpticsModel = "\A3\Weapons_F_Beta\Reticle\Heli_Attack_01_Optics_Gunner_wide_F";
-						opticsPPEffects[] = {"OpticsCHAbera3","OpticsBlur3"};
-						gunnerOpticsEffect[] = {"TankCommanderOptics2"};
+					initFov=1;
+					minFov=0.30000001;
+					maxFov=1.2;
+					initAngleX=-10;
+					minAngleX=-75;
+					maxAngleX=85;
+					initAngleY=0;
+					minAngleY=-170;
+					maxAngleY=170;
+					minMoveX=-0.30000001;
+					maxMoveX=0.30000001;
+					minMoveY=-0.025;
+					maxMoveY=0.1;
+					minMoveZ=-0.30000001;
+					maxMoveZ=0.30000001;
+					speedZoomMaxSpeed=0;
+					speedZoomMaxFOV=1;
 					};
-					class WideT: Wide
-					{
-						initFov = 0.2;
-						minFov = 0.2;
-						maxFov = 0.2;
-						gunnerOpticsModel = "\A3\Weapons_F_Beta\Reticle\Heli_Attack_01_Optics_Gunner_wide_F";
-					};
-					class MediumT: WideT
-					{
-						initFov = 0.1;
-						minFov = 0.1;
-						maxFov = 0.1;
-						gunnerOpticsModel = "\A3\Weapons_F_Beta\Reticle\Heli_Attack_01_Optics_Gunner_medium_F";
-					};
-					class NarrowT: WideT
-					{
-						initFov = 0.022;
-						minFov = 0.022;
-						maxFov = 0.022;
-						gunnerOpticsModel = "\A3\Weapons_F_Beta\Reticle\Heli_Attack_01_Optics_Gunner_narrow_F";
-					};
-					class NarrowT2: WideT
-					{
-						initFov = 0.0092;
-						minFov = 0.0092;
-						maxFov = 0.0092;
-						gunnerOpticsModel = "\A3\Weapons_F_Beta\Reticle\Heli_Attack_01_Optics_Gunner_narrow_F";
-					};
-				};
-			};
+							class OpticsIn
+							{
+								class Wide
+								{
+									opticsDisplayName = "TRK COR";
+									initAngleX = 0;
+									minAngleX = -360;
+									maxAngleX = 360;
+									initAngleY = 0;
+									minAngleY = -15;
+									maxAngleY = 85;
+									initFov = 0.3;
+									minFov = 0.3;
+									maxFov = 0.3;
+									visionMode[] = {"Normal","NVG","Ti"};
+									thermalMode[] = {0};
+									directionStabilized = 1;
+									horizontallyStabilized = 1;
+									gunnerOpticsModel = "\A3\Weapons_F_Beta\Reticle\Heli_Attack_01_Optics_Gunner_wide_F";
+									opticsPPEffects[] = {"OpticsCHAbera3","OpticsBlur3"};
+									gunnerOpticsEffect[] = {"TankCommanderOptics2"};
+								};
+								class WideT: Wide
+								{
+									initFov = 0.2;
+									minFov = 0.2;
+									maxFov = 0.2;
+									gunnerOpticsModel = "\A3\Weapons_F_Beta\Reticle\Heli_Attack_01_Optics_Gunner_wide_F";
+								};
+								class MediumT: WideT
+								{
+									initFov = 0.1;
+									minFov = 0.1;
+									maxFov = 0.1;
+									gunnerOpticsModel = "\A3\Weapons_F_Beta\Reticle\Heli_Attack_01_Optics_Gunner_medium_F";
+								};
+								class NarrowT: WideT
+								{
+									initFov = 0.022;
+									minFov = 0.022;
+									maxFov = 0.022;
+									gunnerOpticsModel = "\A3\Weapons_F_Beta\Reticle\Heli_Attack_01_Optics_Gunner_narrow_F";
+								};
+								class NarrowT2: WideT
+								{
+									initFov = 0.0092;
+									minFov = 0.0092;
+									maxFov = 0.0092;
+									gunnerOpticsModel = "\A3\Weapons_F_Beta\Reticle\Heli_Attack_01_Optics_Gunner_narrow_F";
+								};
+							};
+						};
 
 			class mainTurret: mainTurret
 			{
-        gunnerType = "B_helicrew_F";
+       			 gunnerType = "B_helicrew_F";
 				body="GAU21L_Dir";
 				gun="GAU21L_Elev";
 				animationSourceBody="GAU21L_Dir";
@@ -1002,7 +1010,7 @@ class CfgVehicles
 				memoryPointGunnerOutOptics="gunnerview_3";
 				LODTurnedIn=1;
 				LODTurnedOut=1;
-        gunnerAction="gunner_Heli_Transport_01";
+        		gunnerAction="gunner_Heli_Transport_01";
 				gunnerInAction="gunner_Heli_Transport_01";
 				//gunnerAction="GAU21Gunner";
 				//gunnerInAction="GAU21Gunner";
@@ -1046,7 +1054,7 @@ class CfgVehicles
 			};
 			class M134_Right: MainTurret
 			{
-        gunnerType = "B_helicrew_F";
+        		gunnerType = "B_helicrew_F";
 				isCopilot=0;
 				body="Turret2";
 				gun="Gun_2";
@@ -1233,14 +1241,10 @@ class CfgVehicles
 		Faction="BLU_F";
 		displayName = "UH-1Y Venom";
 		crew = "B_Helipilot_F";
-    typicalCargo[]=
+    	typicalCargo[]=
 		{
 			"B_helicrew_F",
 			"B_helicrew_F"
 		};
-		selectionHRotorStill = "Mrotor_static";
-		selectionHRotorMove = "Mrotor_blur";
-		selectionVRotorStill = "Trotor_static";
-		selectionVRotorMove = "Trotor_blur";
 	};
 };
