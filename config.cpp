@@ -11,7 +11,55 @@ class CfgPatches
 #include "config\misc.hpp"
 #include "config\weapons.hpp"
 #include "config\sounds.hpp"
-
+class CfgNonAIVehicles
+{
+	class ProxyWeapon;
+	//M151
+	class Proxym151: ProxyWeapon
+	{
+		model="h1\weapons\m151.p3d";
+		simulation="maverickweapon";
+	};
+	//M229
+	class Proxym229: ProxyWeapon
+	{
+		model="h1\weapons\m229.p3d";
+		simulation="maverickweapon";
+	};
+	//M247
+	class Proxym247: ProxyWeapon
+	{
+		model="h1\weapons\m247.p3d";
+		simulation="maverickweapon";
+	};
+	//61CA
+	class Proxylau61ca_zoneA: ProxyWeapon
+	{
+		model="h1\weapons\pylons\lau61ca_zoneA.p3d";
+		simulation="pylonpod";
+	};
+	class Proxylau61ca_zoneB: ProxyWeapon
+	{
+		model="h1\weapons\pylons\lau61ca_zoneB.p3d";
+		simulation="pylonpod";
+	};
+	class Proxylau61ca_zoneC: ProxyWeapon
+	{
+		model="h1\weapons\pylons\lau61ca_zoneC.p3d";
+		simulation="pylonpod";
+	};
+	//68DA
+	class Proxylau68da_zoneA: ProxyWeapon
+	{
+		model="h1\weapons\pylons\lau68da_zoneA.p3d";
+		simulation="pylonpod";
+	};
+	class Proxylau68da_zoneB: ProxyWeapon
+	{
+		model="h1\weapons\pylons\lau68da_zoneB.p3d";
+		simulation="pylonpod";
+	};
+};
 class SensorTemplatePassiveRadar;
 class DefaultVehicleSystemsDisplayManagerLeft
 {
@@ -118,65 +166,51 @@ class CfgVehicles
 			class OpticsIn
 			{
 				class Wide
-				{
-					opticsDisplayName="TRK COR";
-					initAngleX=0;
-					minAngleX=-360;
-					maxAngleX=360;
-					initAngleY=0;
-					minAngleY=-15;
-					maxAngleY=85;
-					initFov=0.30000001;
-					minFov=0.30000001;
-					maxFov=0.30000001;
-					visionMode[]=
 					{
-						"Normal",
-						"NVG",
-						"Ti"
+						opticsDisplayName = "----";
+						initAngleX = 0;
+						minAngleX = 0;
+						maxAngleX = 0;
+						initAngleY = 0;
+						minAngleY = 0;
+						maxAngleY = 0;
+						initFov = 0.3;
+						minFov = 0.3;
+						maxFov = 0.3;
+						visionMode[] = {"Normal","NVG","Ti"};
+						thermalMode[] = {0};
+						gunnerOpticsModel = "h1\data\optics\melb_flir_wf.p3d";
+						opticsPPEffects[] = {"OpticsCHAbera2","OpticsBlur2"};
+						gunnerOpticsEffect[] = {"TankCommanderOptics2"};
 					};
-					thermalMode[]={0,1};
-					directionStabilized=1;
-					horizontallyStabilized=1;
-					gunnerOpticsModel="\A3\Weapons_F\empty";
-					opticsPPEffects[]=
+					class WideT2: Wide
 					{
-						"OpticsCHAbera3",
-						"OpticsBlur3"
+						initFov = 0.2;
+						minFov = 0.2;
+						maxFov = 0.2;
+						gunnerOpticsModel = "h1\data\optics\melb_flir_w2.p3d";
 					};
-					gunnerOpticsEffect[]=
+					class MediumT: Wide
 					{
-						"TankCommanderOptics2"
+						initFov = 0.1;
+						minFov = 0.1;
+						maxFov = 0.1;
+						gunnerOpticsModel = "h1\data\optics\melb_flir_m.p3d";
 					};
-				};
-				class WideT: Wide
-				{
-					initFov=0.2;
-					minFov=0.2;
-					maxFov=0.2;
-					gunnerOpticsModel="\A3\Weapons_F\empty";
-				};
-				class MediumT: WideT
-				{
-					initFov=0.1;
-					minFov=0.1;
-					maxFov=0.1;
-					gunnerOpticsModel="\A3\Weapons_F\empty";
-				};
-				class NarrowT: WideT
-				{
-					initFov=0.022;
-					minFov=0.022;
-					maxFov=0.022;
-					gunnerOpticsModel="\A3\Weapons_F\empty";
-				};
-				class NarrowT2: WideT
-				{
-					initFov=0.0092000002;
-					minFov=0.0092000002;
-					maxFov=0.0092000002;
-					gunnerOpticsModel="\A3\Weapons_F\empty";
-				};
+					class NarrowT: Wide
+					{
+						initFov = 0.022;
+						minFov = 0.022;
+						maxFov = 0.022;
+						gunnerOpticsModel = "h1\data\optics\melb_flir_n.p3d";
+					};
+					class NarrowT2: Wide
+					{
+						initFov = 0.0092;
+						minFov = 0.0092;
+						maxFov = 0.0092;
+						gunnerOpticsModel = "h1\data\optics\melb_flir_n2.p3d";
+					};
 			};
 			stabilizedInAxes=3;
 			minElev=-40;
@@ -203,10 +237,10 @@ class CfgVehicles
 		MainRotorSpeed = 1.5;
 		backRotorSpeed = 3;
 
-		// Defense Systems
+		// Armament/Defense Systems
 		armor = 40;
-		weapons[] = {"CMFlareLauncher"};
-		magazines[] = {"168Rnd_CMFlare_Chaff_Magazine"};
+		weapons[] = {"CMFlareLauncher","Laserdesignator_mounted"};
+		magazines[] = {"168Rnd_CMFlare_Chaff_Magazine","Laserbatteries"};
 		memoryPointCM[] = {"flare_launcher1", "flare_launcher2"};
 		memoryPointCMDir[] = {"flare_launcher1_dir", "flare_launcher2_dir"};
 		radarType = 4;
@@ -834,26 +868,87 @@ class CfgVehicles
 		};
 		class Components: Components
 		{
-			class SensorsManagerComponent
-			{
-				class Components
+				
+				class TransportPylonsComponent 
 				{
-					class PassiveRadarSensorComponent: SensorTemplatePassiveRadar
+					uiPicture="\h1\ui\pylonmenu.paa";
+					class pylons 
 					{
+						///Pylon 1
+						class pylons1
+						{
+							maxweight=560;
+							turret[]={0};
+							hardPoints[]=
+							{
+								"zone_A",
+							};
+							attachment="lau68fa_m151_zoneA";
+							bay=-1;
+							priority=8;
+							UIposition[]={0.69999999,0.37};
+						};
+						class pylons2: pylons1
+						{
+							hardPoints[]=
+							{
+								"zone_B",
+							};
+							attachment="lau68fa_m151_zoneB";
+							UIposition[]={0.69999999,0.41999999};
+							priority=7;
+						};
+						class pylons3: pylons1
+						{
+							hardPoints[]=
+							{
+								"zone_C",
+							};
+							attachment="lau68fa_m151_zoneC";
+							UIposition[]={0.69999999,0.47};
+							priority=6;
+						};
+						///Pylon 2
+						class pylons5: pylons1
+						{
+							attachment="lau68fa_m151_zoneA";
+							UIposition[]={0.5,0.37};
+							priority=4;
+						};
+						class pylons6: pylons2
+						{
+							attachment="lau68fa_m151_zoneB";
+							UIposition[]={0.5,0.41999999};
+							priority=3;
+						};
+						class pylons7: pylons3
+						{
+							attachment="lau68fa_m151_zoneC";
+							UIposition[]={0.5,0.47};
+							priority=2;
+						};
 					};
 				};
-			};
-			class VehicleSystemsDisplayManagerComponentLeft: VehicleSystemsTemplateLeftPilot
-			{
-			};
-			class VehicleSystemsDisplayManagerComponentRight: VehicleSystemsTemplateRightPilot
-			{
-			};
+				class SensorsManagerComponent
+				{
+					class Components
+					{
+						class PassiveRadarSensorComponent: SensorTemplatePassiveRadar
+						{
+						};
+					};
+				};
+				class VehicleSystemsDisplayManagerComponentLeft: VehicleSystemsTemplateLeftPilot
+				{
+				};
+				class VehicleSystemsDisplayManagerComponentRight: VehicleSystemsTemplateRightPilot
+				{
+				};
 		};
 		class CargoTurret;
 		class Turrets: Turrets
 		{
-      class CopilotTurret: mainTurret
+        	class CopilotTurret: mainTurret
 			{
         		primaryObserver = 0;
 				primaryGunner = 1;
@@ -1176,7 +1271,7 @@ class CfgVehicles
 				maxTurn = 3;
 				minTurn = -55;
 			};*/
-    };
+    	};
 
 		class UserActions
 		{

@@ -69,7 +69,7 @@ class cfgdistancefilters
 	};
 };	
 
-class cfgSoundSets /////////////////////////////////////////////////////////////////////////
+class cfgSoundSets
 {
 	class uh1y_helicopter_engineext_soundset
 	{
@@ -231,7 +231,7 @@ class cfgSoundSets /////////////////////////////////////////////////////////////
 		volumefactor = 0.25;
 	};
 };	
-class cfgSoundShaders /////////////////////////////////////////////////////////////////////
+class cfgSoundShaders 
 {
 	class uh1y_helicopter_engineext_soundshader
 	{
