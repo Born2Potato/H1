@@ -179,7 +179,7 @@ class CfgVehicles
 						maxFov = 0.3;
 						visionMode[] = {"Normal","NVG","Ti"};
 						thermalMode[] = {0};
-						gunnerOpticsModel = "h1\data\optics\melb_flir_wf.p3d";
+						gunnerOpticsModel = "h1\data\optics\flir_wf.p3d";
 						opticsPPEffects[] = {"OpticsCHAbera2","OpticsBlur2"};
 						gunnerOpticsEffect[] = {"TankCommanderOptics2"};
 					};
@@ -188,28 +188,28 @@ class CfgVehicles
 						initFov = 0.2;
 						minFov = 0.2;
 						maxFov = 0.2;
-						gunnerOpticsModel = "h1\data\optics\melb_flir_w2.p3d";
+						gunnerOpticsModel = "h1\data\optics\flir_w2.p3d";
 					};
 					class MediumT: Wide
 					{
 						initFov = 0.1;
 						minFov = 0.1;
 						maxFov = 0.1;
-						gunnerOpticsModel = "h1\data\optics\melb_flir_m.p3d";
+						gunnerOpticsModel = "h1\data\optics\flir_m.p3d";
 					};
 					class NarrowT: Wide
 					{
 						initFov = 0.022;
 						minFov = 0.022;
 						maxFov = 0.022;
-						gunnerOpticsModel = "h1\data\optics\melb_flir_n.p3d";
+						gunnerOpticsModel = "h1\data\optics\flir_n.p3d";
 					};
 					class NarrowT2: Wide
 					{
 						initFov = 0.0092;
 						minFov = 0.0092;
 						maxFov = 0.0092;
-						gunnerOpticsModel = "h1\data\optics\melb_flir_n2.p3d";
+						gunnerOpticsModel = "h1\data\optics\flir_n2.p3d";
 					};
 			};
 			stabilizedInAxes=3;
