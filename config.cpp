@@ -1,3 +1,8 @@
+#include "script_component.hpp"
+#include "config\mouseBlocker.hpp"
+#include "config\CfgEventHandlers.hpp"
+#include "config\Armakeybinds.hpp"
+
 class CfgPatches 
 {
 	class h1 
