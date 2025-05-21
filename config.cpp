@@ -61,10 +61,24 @@ class CfgNonAIVehicles
 	};
 };
 class SensorTemplatePassiveRadar;
-class DefaultVehicleSystemsDisplayManagerLeft
+class SensorTemplateAntiRadiation;
+class SensorTemplateActiveRadar;
+class SensorTemplateIR;
+class SensorTemplateVisual;
+class SensorTemplateMan;
+class SensorTemplateLaser;
+class SensorTemplateNV;
+class SensorTemplateDataLink;
+class DataLinkSensorComponent: SensorTemplateDataLink
 {
 	class components;
 };
+class IRSensorComponent;
+class VisualSensorComponent;
+class PassiveRadarSensorComponent;
+class LaserSensorComponent;
+class NVSensorComponent;
+class DefaultVehicleSystemsDisplayManagerLeft;
 class DefaultVehicleSystemsDisplayManagerRight
 {
 	class components;
@@ -182,6 +196,8 @@ class CfgVehicles
 						gunnerOpticsModel = "h1\data\optics\flir_wf.p3d";
 						opticsPPEffects[] = {"OpticsCHAbera2","OpticsBlur2"};
 						gunnerOpticsEffect[] = {"TankCommanderOptics2"};
+						thermalResolution[] = {0,720,1,720};
+						thermalNoise[] = {0.5,0.25,0.25,0.05,0.15,1,0,0.5};
 					};
 					class WideT2: Wide
 					{
@@ -241,6 +257,10 @@ class CfgVehicles
 		armor = 40;
 		weapons[] = {"CMFlareLauncher","Laserdesignator_mounted"};
 		magazines[] = {"168Rnd_CMFlare_Chaff_Magazine","Laserbatteries"};
+		memoryPointLMissile="rocket_l";
+		memoryPointLRocket="rocket_l";
+		memoryPointRMissile="rocket_r";
+		memoryPointRRocket="rocket_r";
 		memoryPointCM[] = {"flare_launcher1", "flare_launcher2"};
 		memoryPointCMDir[] = {"flare_launcher1_dir", "flare_launcher2_dir"};
 		radarType = 4;
@@ -670,26 +690,7 @@ class CfgVehicles
 			};
 		};
 		class MFD
-		{
-			class AirplaneHUD
-			{
-				class Bones {};
-				class Draw {};
-				topLeft = "HUD_top_left";
-				topRight = "HUD_top_right";
-				bottomLeft = "HUD_bottom_left";
-				borderLeft = 0;
-				borderRight = 0;
-				borderTop = 0;
-				borderBottom = 0;
-				font = "ArchimotoRoundedThin";
-				color[] = {0.082,0.408,0.039,0.5};
-				enableParallax = 0;
-				helmetMountedDisplay = 1;
-				helmetPosition[] = {0, 0, 0};
-				helmetRight[] = {0, 0, 0};
-				helmetDown[] = {0, 0, 0};
-			};	
+		{	
       		#include "config\MFD\kimi.hpp"		
 		};
 		class AnimationSources: AnimationSources
@@ -885,8 +886,8 @@ class CfgVehicles
 							};
 							attachment="lau68fa_m151_zoneA";
 							bay=-1;
-							priority=8;
-							UIposition[]={0.69999999,0.37};
+							priority=6;
+							UIposition[]={0.30000001,0.37};
 						};
 						class pylons2: pylons1
 						{
@@ -895,8 +896,8 @@ class CfgVehicles
 								"zone_B",
 							};
 							attachment="lau68fa_m151_zoneB";
-							UIposition[]={0.69999999,0.41999999};
-							priority=7;
+							UIposition[]={0.30000001,0.41999999};
+							priority=5;
 						};
 						class pylons3: pylons1
 						{
@@ -904,28 +905,28 @@ class CfgVehicles
 							{
 								"zone_C",
 							};
-							attachment="lau68fa_m151_zoneC";
-							UIposition[]={0.69999999,0.47};
-							priority=6;
-						};
-						///Pylon 2
-						class pylons5: pylons1
-						{
-							attachment="lau68fa_m151_zoneA";
-							UIposition[]={0.5,0.37};
+							attachment="";
+							UIposition[]={0.30000001,0.47};
 							priority=4;
 						};
-						class pylons6: pylons2
+						///Pylon 2
+						class pylons4: pylons1
 						{
-							attachment="lau68fa_m151_zoneB";
-							UIposition[]={0.5,0.41999999};
+							attachment="lau68fa_m151_zoneA";
+							UIposition[]={0.1,0.37};
 							priority=3;
 						};
-						class pylons7: pylons3
+						class pylons5: pylons2
 						{
-							attachment="lau68fa_m151_zoneC";
-							UIposition[]={0.5,0.47};
+							attachment="lau68fa_m151_zoneB";
+							UIposition[]={0.1,0.41999999};
 							priority=2;
+						};
+						class pylons6: pylons3
+						{
+							attachment="";
+							UIposition[]={0.1,0.47};
+							priority=1;
 						};
 					};
 				};
@@ -933,8 +934,108 @@ class CfgVehicles
 				{
 					class Components
 					{
-						class PassiveRadarSensorComponent: SensorTemplatePassiveRadar
+						class DataLinkSensorComponent: SensorTemplateDataLink
 						{
+							class AirTarget
+							{
+								minRange = 0;
+								maxRange = 16000;
+								objectDistanceLimitCoef = -1;
+								viewDistanceLimitCoef = -1;
+							};
+							class GroundTarget
+							{
+								minRange = 0;
+								maxRange = 16000;
+								objectDistanceLimitCoef = -1;
+								viewDistanceLimitCoef = -1;
+							};
+							typeRecognitionDistance = 16000;
+							angleRangeHorizontal = 360;
+							angleRangeVertical = 360;
+							groundNoiseDistanceCoef = -1;
+							maxGroundNoiseDistance = -1;
+							minSpeedThreshold = -1;
+							maxSpeedThreshold = -1;
+						};
+						class IRSensorComponent: SensorTemplateIR
+						{
+							class AirTarget
+							{
+								minRange = 500;
+								maxRange = 5000;
+								objectDistanceLimitCoef = -1;
+								viewDistanceLimitCoef = -1;
+							};
+							class GroundTarget
+							{
+								minRange = 500;
+								maxRange = 7000;
+								objectDistanceLimitCoef = -1;
+								viewDistanceLimitCoef = -1;
+							};
+							angleRangeHorizontal = 50;
+							angleRangeVertical = 37;
+							maxTrackableSpeed = 100;
+							animDirection = "tgp_dir";
+						};
+						class VisualSensorComponent: SensorTemplateVisual
+						{
+							class AirTarget
+							{
+								minRange = 500;
+								maxRange = 5000;
+								objectDistanceLimitCoef = -1;
+								viewDistanceLimitCoef = -1;
+							};
+							class GroundTarget
+							{
+								minRange = 500;
+								maxRange = 5000;
+								objectDistanceLimitCoef = -1;
+								viewDistanceLimitCoef = -1;
+							};
+							angleRangeHorizontal = 70;
+							angleRangeVertical = 40;
+							maxTrackableSpeed = 100;
+							animDirection = "tgp_dir";
+						};
+						class PassiveRadarSensorComponent: SensorTemplatePassiveRadar{};
+						class LaserSensorComponent: SensorTemplateLaser
+						{
+							class AirTarget
+							{
+								minRange = 200;
+								maxRange = 8000;
+								objectDistanceLimitCoef = -1;
+								viewDistanceLimitCoef = -1;
+							};
+							class GroundTarget
+							{
+								minRange = 200;
+								maxRange = 8000;
+								objectDistanceLimitCoef = -1;
+								viewDistanceLimitCoef = -1;
+							};
+							animDirection = "tgp_dir";
+						};
+						class NVSensorComponent: SensorTemplateNV
+						{
+							class AirTarget
+							{
+								minRange = 200;
+								maxRange = 8000;
+								objectDistanceLimitCoef = -1;
+								viewDistanceLimitCoef = -1;
+							};
+							class GroundTarget
+							{
+								minRange = 200;
+								maxRange = 8000;
+								objectDistanceLimitCoef = -1;
+								viewDistanceLimitCoef = -1;
+							};
+							animDirection = "tgp_dir";
 						};
 					};
 				};
@@ -1326,6 +1427,140 @@ class CfgVehicles
 				condition="player in this and this animationPhase ""CockpitBacklights"" < 0.5";
 				statement="this animate [""CockpitBacklights"",1];";
 			};
+
+			///Kimi's HUD
+				class HMDs_Kimi_UserAction_0_ON
+				{
+					displayName = "<t color='#26ff00'>HMD ON</t>";
+					condition = "(player in [driver this, this turretUnit [0]]) && (alive this)";
+					statement = "this SetUserMFDvalue [0,1]";
+					position = "pilotcontrol";
+					radius = 20;
+					onlyforplayer = 1;
+					showWindow = 1;
+					hideOnUse = 1;
+					priority = -1;
+				};
+				class HMDs_Kimi_UserAction_0_OFF
+				{
+					displayName = "<t color='#ffff00'>HMD OFF</t>";
+					condition = "(player in [driver this, this turretUnit [0]]) && (alive this)";
+					statement = "this SetUserMFDvalue [0,0]";
+					position = "pilotcontrol";
+					radius = 20;
+					onlyforplayer = 1;
+					showWindow = 1;
+					hideOnUse = 1;
+					priority = -2;
+				};
+				class HMDs_Kimi_UserAction_1_IMPERIAL
+				{
+					displayName = "<t color='#26ff00'>HMD IMPERIAL</t>";
+					condition = "(player in [driver this, this turretUnit [0]]) && (alive this)";
+					statement = "this SetUserMFDvalue [1,1]";
+					position = "pilotcontrol";
+					radius = 20;
+					onlyforplayer = 1;
+					showWindow = 1;
+					hideOnUse = 1;
+					priority = -3;
+				};
+				class HMDs_Kimi_UserAction_1_METRIC
+				{
+					displayName = "<t color='#ffff00'>HMD METRIC</t>";
+					condition = "(player in [driver this, this turretUnit [0]]) && (alive this)";
+					statement = "this SetUserMFDvalue [1,0]";
+					position = "pilotcontrol";
+					radius = 20;
+					onlyforplayer = 1;
+					showWindow = 1;
+					hideOnUse = 1;
+					priority = -4;
+				};
+				class HMDs_Kimi_UserAction_2_FULL
+				{
+					displayName = "<t color='#26ff00'>HMD FULL</t>";
+					condition = "(player in [driver this, this turretUnit [0]]) && (alive this)";
+					statement = "this SetUserMFDvalue [2,0]";
+					position = "pilotcontrol";
+					radius = 20;
+					onlyforplayer = 1;
+					showWindow = 1;
+					hideOnUse = 1;
+					priority = -5;
+				};
+				class HMDs_Kimi_UserAction_2_DECLUTTER
+				{
+					displayName = "<t color='#ffff00'>HMD DECLUTTER</t>";
+					condition = "(player in [driver this, this turretUnit [0]]) && (alive this)";
+					statement = "this SetUserMFDvalue [2,1]";
+					position = "pilotcontrol";
+					radius = 20;
+					onlyforplayer = 1;
+					showWindow = 1;
+					hideOnUse = 1;
+					priority = -6;
+				};
+				class HMDs_Kimi_UserAction_345_COLOR_GREEN
+				{
+					displayName = "<t color='#00ff00'>HMD GREEN</t>";
+					condition = "(player in [driver this, this turretUnit [0]]) && (alive this)";
+					statement = "this SetUserMFDvalue [3,0];this SetUserMFDvalue [4,1];this SetUserMFDvalue [5,0];";
+					position = "pilotcontrol";
+					radius = 20;
+					onlyforplayer = 1;
+					showWindow = 1;
+					hideOnUse = 1;
+					priority = -7;
+				};
+				class HMDs_Kimi_UserAction_345_COLOR_YELLOW
+				{
+					displayName = "<t color='#ffff00'>HMD YELLOW</t>";
+					condition = "(player in [driver this, this turretUnit [0]]) && (alive this)";
+					statement = "this SetUserMFDvalue [3,1];this SetUserMFDvalue [4,0.65];this SetUserMFDvalue [5,0];";
+					position = "pilotcontrol";
+					radius = 20;
+					onlyforplayer = 1;
+					showWindow = 1;
+					hideOnUse = 1;
+					priority = -8;
+				};
+				class HMDs_Kimi_UserAction_6_ALPHA_HIGH
+				{
+					displayName = "HMD BRT HIGH";
+					condition = "(player in [driver this, this turretUnit [0]]) && (alive this)";
+					statement = "this SetUserMFDvalue [6,0.5]";
+					position = "pilotcontrol";
+					radius = 20;
+					onlyforplayer = 1;
+					showWindow = 1;
+					hideOnUse = 1;
+					priority = -9;
+				};
+				class HMDs_Kimi_UserAction_6_ALPHA_MED
+				{
+					displayName = "HMD BRT MED";
+					condition = "(player in [driver this, this turretUnit [0]]) && (alive this)";
+					statement = "this SetUserMFDvalue [6,0.2]";
+					position = "pilotcontrol";
+					radius = 20;
+					onlyforplayer = 1;
+					showWindow = 1;
+					hideOnUse = 1;
+					priority = -10;
+				};
+				class HMDs_Kimi_UserAction_6_ALPHA_LOW
+				{
+					displayName = "HMD BRT LOW";
+					condition = "(player in [driver this, this turretUnit [0]]) && (alive this)";
+					statement = "this SetUserMFDvalue [6,0.05]";
+					position = "pilotcontrol";
+					radius = 20;
+					onlyforplayer = 1;
+					showWindow = 1;
+					hideOnUse = 1;
+					priority = -11;
+				};
 		};
 	};
   
