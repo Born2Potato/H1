@@ -1,10 +1,20 @@
 class CfgAmmo
 {
-	class MissileBase;
+	
+	class MissileCore;
+	class MissileBase: MissileCore
+	{
+		class Components;
+	};
 	class 275_base: MissileBase
 	{
-		ace_frag_enabled=0;
-		ace_frag_skip=1;
+		ACE_damageType = "explosive";
+		ace_frag_enabled = 1;
+		ace_frag_metal = 2900;
+		ace_frag_charge = 1000;
+		ace_frag_gurney_c = 2700;
+		ace_frag_gurney_k = "1/2";
+		ace_frag_classes[] = {"ace_frag_medium","ace_frag_medium_HD"};
 		model="\h1\weapons\m151_wep";
 		effectsMissileInit="MissileDAR1";
 		muzzleEffect="BIS_fnc_effectFiredHeliRocket";
@@ -29,13 +39,13 @@ class CfgAmmo
 		suppressionRadiusHit=15;
 		dangerRadiusHit=40;
 		initTime=0.02;
-		maxSpeed=840;
-		thrustTime=2;
+		maxSpeed = 250;
+		thrustTime = 0.4;
 		thrust=840;
 		fuseDistance=75;
-		airFriction=0.1;
+		airFriction=0.05;
 		sideAirFriction=0.0040000002;
-		timeToLive=15;
+		timeToLive=60;
 		whistleDist=24;
 		class CamShakeExplode
 		{
@@ -103,36 +113,36 @@ class CfgAmmo
 
 	class 275_apkws_base : MissileBase
 	{
+		ACE_damageType = "explosive";
+		ace_frag_enabled = 1;
+		ace_frag_metal = 2900;
+		ace_frag_charge = 1000;
+		ace_frag_gurney_c = 2700;
+		ace_frag_gurney_k = "1/2";
+		ace_frag_classes[] = {"ace_frag_medium","ace_frag_medium_HD"};
 		model="\h1\weapons\m151_wep.p3d";
 		proxyShape="\h1\weapons\m151.p3d";
-		hit = 600;
+		simulation = "shotMissile";
+		effectsMissileInit="MissileDAR1";
+		muzzleEffect="BIS_fnc_effectFiredHeliRocket";
+		maverickWeaponIndexOffset = 0;
+		hit = 200;
 		indirectHit = 50;
 		indirectHitRange = 15;
-		cost = 500;
-		maxSpeed = 720;
-		irLock = 0;
-		laserLock = 1;
-		airLock = 0;
-		aiAmmoUsageFlags = "128 + 64";
-		maxControlRange = 5000;
-		trackOversteer = 1;
-		trackLead = 1;
-		maneuvrability = 50;
-		simulationStep = 0.01;
-		airFriction = 0.1;
-		sideAirFriction = 0.16;
-		initTime = 0.002;
-		thrust = 1060;
-		thrustTime = 0.69;
-		fuseDistance = 5;
-		effectsMissileInit = "MissileDAR1";
-		effectsMissile = "missile2";
-		whistleDist = 4;
-		muzzleEffect = "";
+		cost = 80;
+		maxSpeed = 250;
+		thrustTime = 0.4;
+		thrust=840;
+		airFriction=0.05;
+		sideAirFriction = 0.2;
 		timeToLive = 60;
-		weaponLockSystem = "2 + 16";
-		manualControl = 0;
-		cameraViewAvailable = 0;
+		fuseDistance = 40;
+		whistleDist = 24;
+		maneuvrability = 15;
+		missileLockMaxDistance = 3500;
+		missileLockMinDistance = 100;
+		missileLockMaxSpeed = 680;
+		missileLockCone = 50;
 		class CamShakeExplode
 		{
 			power=16;
@@ -161,12 +171,7 @@ class CfgAmmo
 			frequency=20;
 			distance=1;
 		};
-		missileLockCone = 180;
-		missileKeepLockedCone = 180;
-		missileLockMaxDistance = 5000;
-		missileLockMinDistance = 50;
-		missileLockMaxSpeed = 550;
-		class Components
+		class Components: Components
 		{
 			class SensorsManagerComponent
 			{
@@ -175,55 +180,51 @@ class CfgAmmo
 					class SomeRadarSensorComponent
 					{
 						componentType = "LaserSensorComponent";
-						class AirTarget      // ranges for targets with sky background
+						class AirTarget
 						{
-							minRange = 10;         //minimum possible range in meters  
-							maxRange = 5000;       //maximum possible range in meters                 
-							objectDistanceLimitCoef = -1;    //range not limited by obj. view distance
-							viewDistanceLimitCoef = -1;      //range not limited by view distance           
-						};
-						class GroundTarget      // ranges for targets with ground background                           
-						{
-							minRange = 10;
+							minRange = 5000;
 							maxRange = 5000;
 							objectDistanceLimitCoef = -1;
 							viewDistanceLimitCoef = -1;
 						};
-						typeRecognitionDistance = 5000; // distance how far the target type gets recognized                                          
-						angleRangeHorizontal = 180;     // sensor azimuth coverage in degrees         
-						angleRangeVertical = 240;       // sensor elevation coverage in degrees       
-						groundNoiseDistanceCoef = -1;  // portion of sensor-target-ground distance below which the targets become invisible to the sensor
-						maxGroundNoiseDistance = -1;   // distance from the ground in meters, hard cap, above which the target will be visible even if still below groundNoiseDistanceCoef
-						minSpeedThreshold = -1;        // target speed in km/h above which the target will start to become visible           
-						maxSpeedThreshold = -1;       // target speed above which the target becomes visible even if below groundNoiseDistanceCoef, linearly decreases to minSpeedThreshold         
+						class GroundTarget
+						{
+							minRange = 3000;
+							maxRange = 3000;
+							objectDistanceLimitCoef = -1;
+							viewDistanceLimitCoef = -1;
+						};
+						typeRecognitionDistance = 1000;
+						angleRangeHorizontal = 60;
+						angleRangeVertical = 60;
+						groundNoiseDistanceCoef = 0.5;
+						maxGroundNoiseDistance = 250;
+						minSpeedThreshold = 30;
+						maxSpeedThreshold = 45;
 					};
 				};
 			};
 		};
-        class ace_missileguidance {
-            enabled = 1; // Enable missile guidance (0-disabled, 1-enabled)
-
-            minDeflection = 0.00025;  // Minimum flap deflection for guidance
-            maxDeflection = 0.001;  // Maximum flap deflection for guidance
-            incDeflection = 0.0005;  // The increment in which deflection adjusts
-
-            canVanillaLock = 0;  // Enable vanilla lock, only applicable to non-cadet modes, 'recruit' always uses vanilla locking (0-disabled, 1-enabled)
-
-            defaultSeekerType = "SALH";  // Default seeker type
-            seekerTypes[] = {"SALH", "LIDAR", "SARH", "Optic", "Thermal", "GPS", "SACLOS", "MCLOS"};  // Seeker types available
-
-            defaultSeekerLockMode = "LOBL";  // Default seeker lock mode
-            seekerLockModes[] = {"LOAL", "LOBL"};  // Seeker lock modes available
-
-            seekerAngle = 90;  // Angle in front of the missile which can be searched
-            seekerAccuracy = 1;  // Seeker accuracy multiplier
-
-            seekerMinRange = 1;  // Minimum range from the missile which the seeker can visually search
-            seekerMaxRange = 2500;  // Maximum from the missile which the seeker can visually search
-
-            defaultAttackProfile = "DIR";  // Default attack profile
-            attackProfiles[] = {"LIN", "DIR", "MID", "HI"};  // Attack profiles available
-        };			
+		class ACE_MissileGuidance
+		{
+			enabled = 1;
+			canVanillaLock = 1;
+			minDeflection = 0.001;
+			maxDeflection = 0.003;
+			incDeflection = 0.0005;
+			defaultSeekerType = "SALH";
+			seekerTypes[] = {"SALH"};
+			defaultSeekerLockMode = "LOAL";
+			seekerLockModes[] = {"LOAL"};
+			seekLastTargetPos = 1;
+			seekerAngle = 45;
+			seekerAccuracy = 1;
+			seekerIntercept = 1;
+			seekerMinRange = 1;
+			seekerMaxRange = 7000;
+			defaultAttackProfile = "DIR";
+			attackProfiles[] = {"DIR","LIN"};
+		};		
 		
 	};
 	class 275_m151_apkws: 275_apkws_base
