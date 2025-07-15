@@ -1,0 +1,13 @@
+*.biprivatekey
+*.cache
+*.exe
+*.log
+*.pbo
+*.swo
+*.swp
+.hemttout/*
+keys/*
+release/*
+releases/*
+texHeaders.bin
+Thumbs.db
