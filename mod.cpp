@@ -1,0 +1,12 @@
+name = "Tato H1";
+picture = "logo_tato_ca.paa";
+actionName = "GitHub";
+action = "https://github.com/Born2Potato/H1";
+description = "UH-1Y Venom.";
+logo = "logo_tato_ca.paa";
+logoOver = "logo_tato_ca.paa";
+tooltip = "Tato H1";
+tooltipOwned = "Tato H1";
+overview = "UH-1Y Venom.";
+author = "Ampersand";
+overviewPicture = "logo_tato_ca.paa";
