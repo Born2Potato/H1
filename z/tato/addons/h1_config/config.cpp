@@ -1687,7 +1687,7 @@ class CfgVehicles
 		{
 			class OpticsIn
 			{
-				class Wide
+					class Wide
 					{
 						opticsDisplayName = "----";
 						initAngleX = 0;
@@ -2217,49 +2217,25 @@ class CfgVehicles
 				initPhase="rad 80";
 			};
 
-			//////////     Doors     //////////
-			class Door_FL_Hide
+			//M197
+			class m197_direction
 			{
-				displayName="Hide FL doors";
 				source="user";
 				animPeriod=1;
-				initPhase=0;
+				initPhase="rad 180";
 			};
-			class Door_FR_Hide
+			class m197_elevation
 			{
-				displayName="Hide FR doors";
 				source="user";
 				animPeriod=1;
-				initPhase=0;
+				initPhase="rad 80";
 			};
-			class Door_ML_Hide
+			class m197_barrels
 			{
-				displayName="Hide ML doors";
-				source="user";
-				animPeriod=1;
-				initPhase=0;
+				source="revolving";
+				weapon="m197";
 			};
-			class Door_MR_Hide
-			{
-				displayName="Hide MR doors";
-				source="user";
-				animPeriod=1;
-				initPhase=0;
-			};
-			class Door_BL_Hide
-			{
-				displayName="Hide BL doors";
-				source="user";
-				animPeriod=1;
-				initPhase=0;
-			};
-			class Door_BR_Hide
-			{
-				displayName="Hide BR doors";
-				source="user";
-				animPeriod=1;
-				initPhase=0;
-			};
+
 
 			//////////     Rotors     //////////
 
@@ -2363,16 +2339,6 @@ class CfgVehicles
 				AnimPeriod=1;
 				source="user";
 				InitPhase=1;
-			};
-			class Muzzle_Flash_GAU21_L
-			{
-				source="reload";
-				weapon="M3M_GAU21";
-			};
-			class Muzzle_Flash_M134
-			{
-				source="ammoRandom";
-				weapon="M134_GAU17";
 			};
 		};
 		class Components: Components
@@ -2658,33 +2624,39 @@ class CfgVehicles
 				
 				weapons[]=
 				{
-					"Laserdesignator_mounted"
+					"Laserdesignator_mounted",
+					"m197"
 				};
 				magazines[]=
 				{
-					"Laserbatteries"
+					"Laserbatteries",
+					"750Rnd_20mm"
 				};
 				// Animation class
-				body = "tgp_direction";
-				gun = "tgp_elevation";
+				body = "m197_direction";
+				gun = "m197_elevation";
 
 				// Animation source
-				animationSourceBody="tgp_direction";
-				animationSourceGun="tgp_elevation";
+				animationSourceBody="m197_direction";
+				animationSourceGun="m197_elevation";
         
 				stabilizedInAxes = 3;
-				minElev = -180;
-				maxElev = 40;
-				initElev = 0;
-				minTurn = -180;
-				maxTurn = 180;
-				initTurn = 0;
+
 				minFov = 0.25;
 				maxFov = 0.9;
 				initFov = 0.75;
-				memoryPointGunnerOptics = "tgp_cam_pos";
-				gunBeg="tgp_cam_dir";
-				gunEnd="tgp_cam_pos";
+
+				minElev=-60;
+				maxElev=10;
+				initElev=0;
+				minTurn=-70;
+				maxTurn=70;
+				initTurn=0;
+
+				memoryPointGunnerOptics = "m197_cam_pos";
+				gunBeg="m197_gunbeg";
+				gunEnd="m197_gunend";
+				memoryPointGun= "m197_gunbeg";
 				gunnerUsesPilotView = false;
 				turretFollowFreeLook = 0;
 				class ViewGunner
@@ -2709,54 +2681,54 @@ class CfgVehicles
 				};
 				class OpticsIn
 				{
-								class Wide
-								{
-									opticsDisplayName = "TRK COR";
-									initAngleX = 0;
-									minAngleX = -360;
-									maxAngleX = 360;
-									initAngleY = 0;
-									minAngleY = -15;
-									maxAngleY = 85;
-									initFov = 0.3;
-									minFov = 0.3;
-									maxFov = 0.3;
-									visionMode[] = {"Normal","NVG","Ti"};
-									thermalMode[] = {0};
-									directionStabilized = 1;
-									horizontallyStabilized = 1;
-									gunnerOpticsModel = "\A3\Weapons_F_Beta\Reticle\Heli_Attack_01_Optics_Gunner_wide_F";
-									opticsPPEffects[] = {"OpticsCHAbera3","OpticsBlur3"};
-									gunnerOpticsEffect[] = {"TankCommanderOptics2"};
-								};
-								class WideT: Wide
-								{
-									initFov = 0.2;
-									minFov = 0.2;
-									maxFov = 0.2;
-									gunnerOpticsModel = "\A3\Weapons_F_Beta\Reticle\Heli_Attack_01_Optics_Gunner_wide_F";
-								};
-								class MediumT: WideT
-								{
-									initFov = 0.1;
-									minFov = 0.1;
-									maxFov = 0.1;
-									gunnerOpticsModel = "\A3\Weapons_F_Beta\Reticle\Heli_Attack_01_Optics_Gunner_medium_F";
-								};
-								class NarrowT: WideT
-								{
-									initFov = 0.022;
-									minFov = 0.022;
-									maxFov = 0.022;
-									gunnerOpticsModel = "\A3\Weapons_F_Beta\Reticle\Heli_Attack_01_Optics_Gunner_narrow_F";
-								};
-								class NarrowT2: WideT
-								{
-									initFov = 0.0092;
-									minFov = 0.0092;
-									maxFov = 0.0092;
-									gunnerOpticsModel = "\A3\Weapons_F_Beta\Reticle\Heli_Attack_01_Optics_Gunner_narrow_F";
-								};
+					class Wide
+						{
+							opticsDisplayName = "----";
+							initAngleX = 0;
+							minAngleX = 0;
+							maxAngleX = 0;
+							initAngleY = 0;
+							minAngleY = 0;
+							maxAngleY = 0;
+							initFov = 0.3;
+							minFov = 0.3;
+							maxFov = 0.3;
+							visionMode[] = {"Normal","NVG","Ti"};
+							thermalMode[] = {0};
+							gunnerOpticsModel = "z\tato\addons\h1_ui\optics\flir_wf.p3d";
+							opticsPPEffects[] = {"OpticsCHAbera2","OpticsBlur2"};
+							gunnerOpticsEffect[] = {"TankCommanderOptics2"};
+							thermalResolution[] = {0,720,1,720};
+							thermalNoise[] = {0.5,0.25,0.25,0.05,0.15,1,0,0.5};
+						};
+						class WideT2: Wide
+						{
+							initFov = 0.2;
+							minFov = 0.2;
+							maxFov = 0.2;
+							gunnerOpticsModel = "z\tato\addons\h1_ui\optics\flir_w2.p3d";
+						};
+						class MediumT: Wide
+						{
+							initFov = 0.1;
+							minFov = 0.1;
+							maxFov = 0.1;
+							gunnerOpticsModel = "z\tato\addons\h1_ui\optics\flir_m.p3d";
+						};
+						class NarrowT: Wide
+						{
+							initFov = 0.022;
+							minFov = 0.022;
+							maxFov = 0.022;
+							gunnerOpticsModel = "z\tato\addons\h1_ui\optics\flir_n.p3d";
+						};
+						class NarrowT2: Wide
+						{
+							initFov = 0.0092;
+							minFov = 0.0092;
+							maxFov = 0.0092;
+							gunnerOpticsModel = "z\tato\addons\h1_ui\optics\flir_n2.p3d";
+						};
 				};
 			};
     	};
