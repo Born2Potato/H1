@@ -1,0 +1,12 @@
+*.bak
+*.zip
+*.cache
+releases/*
+release/*
+*.biprivatekey
+keys/*
+/.hemtt
+/.hemttout
+addons/*.pbo
+.vscode
+.sconsign.dblite
